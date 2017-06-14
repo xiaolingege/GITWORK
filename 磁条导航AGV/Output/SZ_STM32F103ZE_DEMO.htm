@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\Output\SZ_STM32F103ZE_DEMO.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\Output\SZ_STM32F103ZE_DEMO.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed May 31 10:45:07 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed Jun 14 10:46:29 2017
 <BR><P>
 <H3>Maximum Stack Usage =        208 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -610,13 +610,13 @@ Global Symbols
 <P><STRONG><a name="[5e]"></a>USART_GetITStatus</STRONG> (Thumb, 62 bytes, Stack size 12 bytes, stm32f10x_usart.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = USART_GetITStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<BR>[Called By]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
 </UL>
 
 <P><STRONG><a name="[5f]"></a>USART_ClearITPendingBit</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f10x_usart.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
-<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
+<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
 </UL>
 
 <P><STRONG><a name="[49]"></a>SystemInit</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, system_stm32f10x.o(.text))
@@ -837,8 +837,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_sense_query_task
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_sense_query_task
 </UL>
 
 <P><STRONG><a name="[65]"></a>hardware_init</STRONG> (Thumb, 140 bytes, Stack size 32 bytes, hardware.o(.text))
@@ -866,13 +866,13 @@ Global Symbols
 <P><STRONG><a name="[86]"></a>SendSpeedToCtrl</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, rs485communicate.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = SendSpeedToCtrl &rArr; usart_out
 </UL>
-<BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;usart_out
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16_table
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;usart_out
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fsub
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16
 </UL>
 <BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_to_speed
 </UL>
@@ -887,12 +887,12 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
 <P><STRONG><a name="[64]"></a>mag_to_speed</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, magserv.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = mag_to_speed &rArr; StationCalc &rArr; MagCenterCalc &rArr; __aeabi_fmul
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = mag_to_speed &rArr; StationCalc &rArr; mag_center_calc &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StationCalc
+<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StationCalc
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;speed_send_task
 </UL>
@@ -1276,9 +1276,9 @@ Global Symbols
 <P><STRONG><a name="[8b]"></a>__aeabi_fadd</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, faddsub_clz.o(x$fpl$fadd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_to_speed
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MagCenterCalc
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_center_calc
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_to_speed
 </UL>
 
 <P><STRONG><a name="[c0]"></a>_fadd</STRONG> (Thumb, 196 bytes, Stack size 16 bytes, faddsub_clz.o(x$fpl$fadd), UNUSED)
@@ -1290,7 +1290,7 @@ Global Symbols
 <P><STRONG><a name="[89]"></a>__aeabi_fdiv</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fdiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MagCenterCalc
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_center_calc
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
 </UL>
 
@@ -1310,7 +1310,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[90]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MagCenterCalc
+<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_center_calc
 </UL>
 
 <P><STRONG><a name="[13c]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)
@@ -1318,9 +1318,9 @@ Global Symbols
 <P><STRONG><a name="[87]"></a>__aeabi_fmul</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, fmul.o(x$fpl$fmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_to_speed
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MagCenterCalc
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_center_calc
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_to_speed
 </UL>
 
 <P><STRONG><a name="[c6]"></a>_fmul</STRONG> (Thumb, 258 bytes, Stack size 16 bytes, fmul.o(x$fpl$fmul), UNUSED)
@@ -1345,7 +1345,7 @@ Global Symbols
 <P><STRONG><a name="[88]"></a>__aeabi_fsub</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, faddsub_clz.o(x$fpl$fsub))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_fsub
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MagCenterCalc
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_center_calc
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
 </UL>
 
@@ -1363,22 +1363,22 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemInit
 </UL>
 
-<P><STRONG><a name="[8c]"></a>CRC16</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, rs485communicate.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = CRC16
+<P><STRONG><a name="[8c]"></a>CRC16_table</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, rs485communicate.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = CRC16_table
 </UL>
 <BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
 </UL>
 
 <P><STRONG><a name="[8e]"></a>StationCalc</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, magserv.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = StationCalc &rArr; MagCenterCalc &rArr; __aeabi_fmul
+<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = StationCalc &rArr; mag_center_calc &rArr; __aeabi_fmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MagCenterCalc
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_center_calc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_to_speed
 </UL>
 
-<P><STRONG><a name="[8f]"></a>MagCenterCalc</STRONG> (Thumb, 194 bytes, Stack size 160 bytes, magserv.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = MagCenterCalc &rArr; __aeabi_fmul
+<P><STRONG><a name="[8f]"></a>mag_center_calc</STRONG> (Thumb, 194 bytes, Stack size 160 bytes, magserv.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = mag_center_calc &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f

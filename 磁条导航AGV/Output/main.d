@@ -46,3 +46,4 @@
 ..\output\main.o: ..\FreeRTOS\inc\task.h
 ..\output\main.o: ..\FreeRTOS\inc\list.h
 ..\output\main.o: ..\FreeRTOS\inc\queue.h
+..\output\main.o: ..\BSP\commtype.h

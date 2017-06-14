@@ -17,7 +17,6 @@
 void speed_send_task(void *pvParameters);
 void mag_sense_query_task(void *pvParameter);
 
-u8 DEBUGtxbuffer[5] = { 1, 2, 3, 4, 5 };
 TaskHandle_t    SpeedSendTaskHandle;//速度发送任务句柄
 TaskHandle_t    MagSenseQueryHandle;//磁传感器查询句柄
 

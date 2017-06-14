@@ -29,5 +29,5 @@
 ..\output\magserv.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
 ..\output\magserv.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 ..\output\magserv.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
-..\output\magserv.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdbool.h
 ..\output\magserv.o: ..\BSP\rs485communicate.h
+..\output\magserv.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdbool.h
