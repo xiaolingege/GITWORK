@@ -1,5 +1,3 @@
-#include "SZ_STM32F103ZE_LIB.h"
-#include "rs485config.h"
 #include "hardware.h"
 #include "rs485communicate.h"
 #include "magserv.h"
@@ -7,12 +5,7 @@
 #include "task.h"
 #include "queue.h"
 #include "commtype.h"
-
-#define SPEEDSENDTASKPRIO   1
-#define MAGSENSEQUERYPRIO   2
-#define SPEEDSENDTASKSTK    500
-#define MAGSENSEQUERYSTK    200
-#define MAGQUERYMSG	{ 0x52, 0x4D, 0x67, 0x73, 0x77 , 0x5e, 0x69 }
+#include "rs485config.h"
 
 void speed_send_task(void *pvParameters);
 void mag_sense_query_task(void *pvParameter);
@@ -24,10 +17,7 @@ TaskHandle_t    MagSenseQueryHandle;//磁传感器查询句柄
 int main(void)
 {
 	hardware_init();
-	uart_init(COM2, 115200);
-	AGV_control_com_config();
 	NVIC_configuration();
-
 	/*创建速度发送任务*/
 	xTaskCreate((TaskFunction_t)speed_send_task,
 		(const char*)"SpeedSendTask",
