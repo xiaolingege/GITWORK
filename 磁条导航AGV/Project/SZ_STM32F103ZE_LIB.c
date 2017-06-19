@@ -88,25 +88,25 @@ void GetDeviceSerialID(void)
 ***------------------------------------------------------*/
 void __SZ_STM32_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
 {
-	GPIO_InitTypeDef GPIO_InitStructure;
+	//GPIO_InitTypeDef GPIO_InitStructure;
 
 	/* Enable GPIO clock */
-	/* 使能STM32的USART对应GPIO的Clock时钟 */
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE);
-	/* 使能STM32的USART的Clock时钟 */
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+	///* 使能STM32的USART对应GPIO的Clock时钟 */
+	//RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, ENABLE);
+	///* 使能STM32的USART的Clock时钟 */
+	//RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
 	/* Configure USART Tx as alternate function push-pull */
 	/* 初始化STM32的USART的TX管脚，配置为复用功能推挽输出 */
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+	//GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+	//GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	//GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	/* Configure USART Rx as input floating */
 	/* 初始化STM32的USART的RX管脚，配置为复用功能输入 */
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+	//GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+	//GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	/* USART configuration */
 	/* 根据传入的参数初始化STM32的USART配置 */
@@ -128,12 +128,12 @@ void __SZ_STM32_COMInit(COM_TypeDef COM, USART_InitTypeDef* USART_InitStruct)
 void uart_init(COM_TypeDef COM, uint32_t BaudRate)
 {
 	USART_InitTypeDef USART_InitStructure;
-	USART_InitStructure.USART_BaudRate = BaudRate;              //串口的波特率，例如115200 最高达4.5Mbits/s
-	USART_InitStructure.USART_WordLength = USART_WordLength_8b; //数据字长度(8位或9位)
-	USART_InitStructure.USART_StopBits = USART_StopBits_1;      //可配置的停止位-支持1或2个停止位
-	USART_InitStructure.USART_Parity = USART_Parity_No;         //偶校验  
-	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //无硬件流控制
-	USART_InitStructure.USART_Mode = USART_Mode_Tx; //双工模式，使能发送和接收
+	//USART_InitStructure.USART_BaudRate = BaudRate;              //串口的波特率，例如115200 最高达4.5Mbits/s
+	//USART_InitStructure.USART_WordLength = USART_WordLength_8b; //数据字长度(8位或9位)
+	//USART_InitStructure.USART_StopBits = USART_StopBits_1;      //可配置的停止位-支持1或2个停止位
+	//USART_InitStructure.USART_Parity = USART_Parity_No;         //偶校验  
+	//USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //无硬件流控制
+	//USART_InitStructure.USART_Mode = USART_Mode_Tx; //双工模式，使能发送和接收
 	__SZ_STM32_COMInit(COM, &USART_InitStructure);  // 调用STM32的USART初始化底层函数  
 	SystemCoreClockUpdate();
 }
