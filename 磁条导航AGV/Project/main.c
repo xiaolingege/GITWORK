@@ -56,7 +56,7 @@ void mag_sense_query_task(void *pvParameters)
 	pvParameters = (void *)pvParameters;
 	while (1)
 	{
-		usart_out(USART1, TxBufferToQueryMagsense, 7);
+		usart_out(COM1, TxBufferToQueryMagsense, 7);
 		vTaskDelay(200);
 	}
 }

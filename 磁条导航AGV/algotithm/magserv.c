@@ -6,14 +6,14 @@
 #define MAGSERVPI   0.05f
 
 static float StationCalc(const u8 * MagSense);
-static  bool isCheckHead(const u8 * head);
+static  BOOL isCheckHead(const u8 * head);
 static float mag_center_calc(u32 magsenseBuffer);
 static float PIDCalc(float err);
 
 const struct _magSenseHeader magSenseHeader = MAG_SENSE_HEADER;
-
-static float CarSpeedVx = 0;
-static float CarSpeedVw = 0;
+CAR_MOVE_STATUS CarSpeed;
+//static float CarSpeedVx = 0;
+//static float CarSpeedVw = 0;
 
 u8 MagRcvDate[MAG_RCV_SIZE] = { 0 };
 u8 MagRcvCount = 0;
@@ -35,7 +35,7 @@ static float StationCalc(const u8 * MagSense)
 			}
 			else
 			{
-				CarSpeedVx = 0;
+				CarSpeed.vx = 0;
 				StationForReturn = 0;
 			}
 		}
@@ -59,7 +59,7 @@ void USART1_IRQHandler(void)
 }
 
 /*---------------------------------------------------------------------------------------------*/
-static  bool isCheckHead(const u8 * head)
+static  BOOL isCheckHead(const u8 * head)
 {
 	u8 hedbuffer[5] = MAG_SENSE_HEADER;
 	u8 i = 0;
@@ -67,35 +67,31 @@ static  bool isCheckHead(const u8 * head)
 	{
 		if (head[i] != hedbuffer[i])
 		{
-			return false;
+			return FALSE;
 		}
 	}
-	return true;
+	return TRUE;
 }
 
 /*---------------------------------------------------------------------------------------------*/
 void mag_to_speed(void)
 {
-	CarSpeedVw = PIDCalc(StationCalc(MagRcvDate));
-	SendSpeedToCtrl(CarSpeedVx, CarSpeedVw);
-	if (CarSpeedVx < 0.60f)
+	CarSpeed.vw = PIDCalc(StationCalc(MagRcvDate));
+	SendSpeedToCtrl(CarSpeed.vx, CarSpeed.vw);
+	if (CarSpeed.vx < 0.60f)
 	{
-		CarSpeedVx += 0.01f;
+		CarSpeed.vx += 0.01f;
 	}
 }
 
 /*---------------------------------------------------------------------------------------------*/
 static float mag_center_calc(u32 magsenseBuffer)
 {
-	MAG_UNION rec_data;
 	float weight[16];
 	float magCenterForReturn = 0;
 	float signal[16];
 	u8 count = 0;
 	u8 i = 0;
-	rec_data.mag_arr[0] = magsenseBuffer;
-	rec_data.mag_arr[1] = magsenseBuffer >> 8;
-	rec_data.mag_arr[2] = magsenseBuffer >> 16;
 	signal[15] = 1 & magsenseBuffer;
 	for (i = 0; i < 16; i++)
 	{
@@ -123,9 +119,9 @@ static float mag_center_calc(u32 magsenseBuffer)
 /*---------------------------------------------------------------------------------------------*/
 static float PIDCalc(float err)
 {
-	float Control = 0;
-	Control = MAGSERVPI * err;
-	return  Control;
+	float control = 0;
+	control = MAGSERVPI * err;
+	return  control;
 }
 
 

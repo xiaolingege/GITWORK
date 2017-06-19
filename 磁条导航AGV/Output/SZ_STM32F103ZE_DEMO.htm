@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\Output\SZ_STM32F103ZE_DEMO.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\Output\SZ_STM32F103ZE_DEMO.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Mon Jun 19 11:10:21 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Mon Jun 19 13:36:36 2017
 <BR><P>
 <H3>Maximum Stack Usage =        208 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -835,7 +835,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[64]"></a>mag_to_speed</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, magserv.o(.text))
+<P><STRONG><a name="[64]"></a>mag_to_speed</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, magserv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = mag_to_speed &rArr; StationCalc &rArr; mag_center_calc &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StationCalc
@@ -932,8 +932,8 @@ Global Symbols
 <P><STRONG><a name="[90]"></a>xPortStartScheduler</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, port.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = xPortStartScheduler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortSetupTimerInterrupt
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___6_port_c_39a90d8d__prvStartFirstTask
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__asm___6_port_c_39a90d8d__prvStartFirstTask
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortSetupTimerInterrupt
 </UL>
 <BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 </UL>
@@ -1075,12 +1075,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a3]"></a>vTaskSuspend</STRONG> (Thumb, 140 bytes, Stack size 16 bytes, tasks.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
+<BR><BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSwitchContext
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxListRemove
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvResetNextTaskUnblockTime
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSwitchContext
 </UL>
 
 <P><STRONG><a name="[a4]"></a>vTaskResume</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, tasks.o(.text), UNUSED)
@@ -1335,7 +1335,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendSpeedToCtrl
 </UL>
 
-<P><STRONG><a name="[89]"></a>StationCalc</STRONG> (Thumb, 80 bytes, Stack size 24 bytes, magserv.o(.text))
+<P><STRONG><a name="[89]"></a>StationCalc</STRONG> (Thumb, 84 bytes, Stack size 24 bytes, magserv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = StationCalc &rArr; mag_center_calc &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_center_calc
@@ -1343,7 +1343,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mag_to_speed
 </UL>
 
-<P><STRONG><a name="[8a]"></a>mag_center_calc</STRONG> (Thumb, 192 bytes, Stack size 160 bytes, magserv.o(.text))
+<P><STRONG><a name="[8a]"></a>mag_center_calc</STRONG> (Thumb, 194 bytes, Stack size 160 bytes, magserv.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = mag_center_calc &rArr; __aeabi_fmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul

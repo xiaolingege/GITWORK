@@ -32,4 +32,3 @@
 ..\output\stm32f10x_it.o: SZ_STM32F103ZE_LIB.h
 ..\output\stm32f10x_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\stm32f10x_it.o: ..\BSP\rs485communicate.h
-..\output\stm32f10x_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

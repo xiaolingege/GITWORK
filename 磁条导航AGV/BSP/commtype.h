@@ -27,7 +27,7 @@ enum _BOOL//自定义BOOL类型
 	FALSE = 0
 };
 
-enum com85msgmode
+enum COM485msgmode
 {
 	MSG_SEND = 0,
 	MSG_GET = 1
@@ -35,27 +35,18 @@ enum com85msgmode
 
 struct _magSenseHeader
 {
-	u8 pos1;
-	u8 pos2;
-	u8 pos3;
-	u8 pos4;
-	u8 pos5;
+	unsigned char pos1;
+	unsigned char pos2;
+	unsigned char pos3;
+	unsigned char pos4;
+	unsigned char pos5;
 };
 
-struct  magtype
+typedef  struct _CAR_MOVE_STATUS
 {
-	u8 pos1 : 1;
-	u8 pos2 : 7;
-	u8 pos3 : 8;
-	u8 pos4 : 1;
-	u8 pos5 : 7;
-};
-
-typedef union _MAG_UNION
-{
-	struct magtype rec_seg;
-	u8 mag_arr[3];
-}MAG_UNION;
+	float vx;
+	float vw;
+}CAR_MOVE_STATUS;
 
 #endif
 

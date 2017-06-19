@@ -1,7 +1,6 @@
 #ifndef RS485COMMUNICATE_H
 #define RS485COMMUNICATE_H
 #include    "stm32f10x.h"
-#include    "stdbool.h"
 
 #define LEFTCTRL 0
 #define RIGHTCTRL 1

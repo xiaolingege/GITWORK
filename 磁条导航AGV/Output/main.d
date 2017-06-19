@@ -30,7 +30,6 @@
 ..\output\main.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 ..\output\main.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 ..\output\main.o: ..\BSP\rs485communicate.h
-..\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 ..\output\main.o: ..\algotithm\magserv.h
 ..\output\main.o: ..\FreeRTOS\inc\FreeRTOS.h
 ..\output\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
