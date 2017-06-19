@@ -29,6 +29,5 @@
 ..\output\hardware.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 ..\output\hardware.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 ..\output\hardware.o: ..\BSP\hardware.h
-..\output\hardware.o: .\SZ_STM32F103ZE_LIB.h
-..\output\hardware.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\hardware.o: ..\BSP\rs485config.h
+..\output\hardware.o: ..\BSP\commtype.h

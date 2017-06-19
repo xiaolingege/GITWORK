@@ -1,7 +1,31 @@
 #include "stm32f10x.h"
 #include "hardware.h"
-#include "SZ_STM32F103ZE_LIB.h"
+//#include "SZ_STM32F103ZE_LIB.h"
 #include "rs485config.h"
+#include "commtype.h"
+static void COM_GPIO_init(GPIO_InitTypeDef *GPIO_InitStructure);
+static void USART_Config(USART_TypeDef* USARTx, u32 rate);//串口设置
+
+static void COM_GPIO_init(GPIO_InitTypeDef *GPIO_InitStructure)
+{
+	GPIO_InitStructure->GPIO_Mode = GPIO_Mode_AF_PP;     //复用推挽输出
+	GPIO_InitStructure->GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure->GPIO_Pin = COM1_OUT;	            //USART1  TX
+	GPIO_Init(GPIOA, GPIO_InitStructure);
+
+	GPIO_InitStructure->GPIO_Pin = COM1_IN;	            // USART1 RX
+	GPIO_InitStructure->GPIO_Mode = GPIO_Mode_IN_FLOATING; // 复用开漏输入
+	GPIO_Init(GPIOB, GPIO_InitStructure);
+
+	GPIO_InitStructure->GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStructure->GPIO_Pin = COM2_OUT;
+	GPIO_InitStructure->GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA, GPIO_InitStructure);
+
+	GPIO_InitStructure->GPIO_Mode = GPIO_Mode_IN_FLOATING;
+	GPIO_InitStructure->GPIO_Pin = COM2_IN;
+	GPIO_Init(GPIOA, GPIO_InitStructure);
+}
 
 /*---------------------------------------------------------------------------------------------*/
 void hardware_init(void)
@@ -9,33 +33,29 @@ void hardware_init(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	//初始化时钟
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOF | RCC_APB2Periph_GPIOA, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB1Periph_USART2, ENABLE);
 
+	COM_GPIO_init(&GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;     //复用推挽输出
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;	            //USART1  TX
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;	            // USART1 RX
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; // 复用开漏输入
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
-
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
-	USART_Config(USART1, 115200);
-	USART_Config(USART2, 115200);
-//	uart_init(COM2, 115200);
+	USART_Config(COM1, 115200);
+	USART_Config(COM2, 115200);
+	//	uart_init(COM2, 115200);
 	AGV_control_com_config();
-	GPIO_SetBits(GPIOF, GPIO_Pin_11);   //设置485为输出状态，暂不改变其状态
+	//GPIO_SetBits(GPIOF, GPIO_Pin_11);   //设置485为输出状态，暂不改变其状态
+	change_rs485_mode(MSG_SEND);
+}
 
+void change_rs485_mode(u8 msgdir)
+{
+	if (msgdir == MSG_SEND)
+	{
+		GPIO_SetBits(GPIOF, GPIO_Pin_11);   //设置485为输出状态，暂不改变其状态
+
+	}
+	else if (msgdir == MSG_GET)
+	{
+		GPIO_ResetBits(GPIOF, GPIO_Pin_11);
+	}
 }
 
 /*---------------------------------------------------------------------------------------------*/

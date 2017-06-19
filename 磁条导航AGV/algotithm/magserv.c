@@ -1,9 +1,10 @@
 #include "magserv.h"
 #include "stm32f10x.h"
 #include "rs485communicate.h"
+#include "commtype.h"
 
 #define MAGSERVPI   0.05f
-#define MAGSENSEHEADER {0x52, 0x4D, 0x67, 0x73, 0x77}
+
 static float StationCalc(const u8 * MagSense);
 static  bool isCheckHead(const u8 * head);
 static float mag_center_calc(u32 magsenseBuffer);
@@ -16,25 +17,25 @@ const struct _magSenseHeader
 	u8 pos3;
 	u8 pos4;
 	u8 pos5;
-}magSenseHeader = {0x52, 0x4D, 0x67, 0x73, 0x77};
+}magSenseHeader = MAG_SENSE_HEADER;
 
 static float CarSpeedVx = 0;
 static float CarSpeedVw = 0;
 
-u8 MagReceiveDate[MAGRCVSIZE] = { 0 };
-u8 MagReceiveCount = 0;
+u8 MagRcvDate[MAG_RCV_SIZE] = { 0 };
+u8 MagRcvCount = 0;
 
 /*---------------------------------------------------------------------------------------------*/
 static float StationCalc(const u8 * MagSense)
 {
 	static float StationForReturn = 0;
 	u32 magDate = 0;
-	if (MagReceiveCount >= 10)
+	if (MagRcvCount >= 10)
 	{
 		if (isCheckHead(MagSense))
 		{
 			magDate = (MagSense[5] << 16) | (MagSense[6] << 8) | (MagSense[7]);
-			MagReceiveCount = 0;
+			MagRcvCount = 0;
 			if (0 != magDate)
 			{
 				StationForReturn = mag_center_calc(magDate);
@@ -45,7 +46,7 @@ static float StationCalc(const u8 * MagSense)
 				StationForReturn = 0;
 			}
 		}
-		MagReceiveCount = 0;
+		MagRcvCount = 0;
 	}
 	return StationForReturn;
 }
@@ -55,10 +56,10 @@ void USART1_IRQHandler(void)
 {
 	if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
 	{
-		MagReceiveDate[MagReceiveCount++] = USART_ReceiveData(USART1);
-		if (MagReceiveDate[0] != magSenseHeader.pos1)
+		MagRcvDate[MagRcvCount++] = USART_ReceiveData(USART1);
+		if (MagRcvDate[0] != magSenseHeader.pos1)
 		{
-			MagReceiveCount = 0;
+			MagRcvCount = 0;
 		}
 		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
 	}
@@ -67,7 +68,7 @@ void USART1_IRQHandler(void)
 /*---------------------------------------------------------------------------------------------*/
 static  bool isCheckHead(const u8 * head)
 {
-	u8 hedbuffer[5] = MAGSENSEHEADER;
+	u8 hedbuffer[5] = MAG_SENSE_HEADER;
 	u8 i = 0;
 	for (i = 0; i < 5; i++)
 	{
@@ -82,7 +83,7 @@ static  bool isCheckHead(const u8 * head)
 /*---------------------------------------------------------------------------------------------*/
 void mag_to_speed(void)
 {
-	CarSpeedVw = PIDCalc(StationCalc(MagReceiveDate));
+	CarSpeedVw = PIDCalc(StationCalc(MagRcvDate));
 	SendSpeedToCtrl(CarSpeedVx, CarSpeedVw);
 	if (CarSpeedVx < 0.60f)
 	{
