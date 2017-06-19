@@ -1,7 +1,7 @@
 ..\output\rs485communicate.o: ..\BSP\rs485communicate.c
 ..\output\rs485communicate.o: .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 ..\output\rs485communicate.o: .\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-..\output\rs485communicate.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdint.h
+..\output\rs485communicate.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\output\rs485communicate.o: .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
 ..\output\rs485communicate.o: .\stm32f10x_conf.h
 ..\output\rs485communicate.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
@@ -29,5 +29,5 @@
 ..\output\rs485communicate.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 ..\output\rs485communicate.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 ..\output\rs485communicate.o: ..\BSP\rs485communicate.h
-..\output\rs485communicate.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdbool.h
+..\output\rs485communicate.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 ..\output\rs485communicate.o: ..\BSP\rs485config.h

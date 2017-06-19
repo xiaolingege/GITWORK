@@ -1,8 +1,8 @@
 ..\output\heap_2.o: ..\FreeRTOS\src\heap_2.c
-..\output\heap_2.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdlib.h
+..\output\heap_2.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\output\heap_2.o: ..\FreeRTOS\inc\FreeRTOS.h
-..\output\heap_2.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stddef.h
-..\output\heap_2.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdint.h
+..\output\heap_2.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\output\heap_2.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\output\heap_2.o: ..\FreeRTOS\inc\FreeRTOSConfig.h
 ..\output\heap_2.o: ..\FreeRTOS\inc\projdefs.h
 ..\output\heap_2.o: ..\FreeRTOS\inc\portable.h

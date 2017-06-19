@@ -1,7 +1,7 @@
 ..\output\xprintf.o: xprintf.c
 ..\output\xprintf.o: .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h
 ..\output\xprintf.o: .\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h
-..\output\xprintf.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdint.h
+..\output\xprintf.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\output\xprintf.o: .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.h
 ..\output\xprintf.o: .\stm32f10x_conf.h
 ..\output\xprintf.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h
@@ -29,6 +29,6 @@
 ..\output\xprintf.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h
 ..\output\xprintf.o: .\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h
 ..\output\xprintf.o: SZ_STM32F103ZE_LIB.h
-..\output\xprintf.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdio.h
+..\output\xprintf.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\output\xprintf.o: xprintf.h
-..\output\xprintf.o: D:\Keil_v4\ARM\ARMCC\bin\..\include\stdarg.h
+..\output\xprintf.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
