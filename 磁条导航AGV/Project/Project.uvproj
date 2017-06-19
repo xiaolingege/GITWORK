@@ -433,11 +433,6 @@
               <FileType>1</FileType>
               <FilePath>.\xprintf.c</FilePath>
             </File>
-            <File>
-              <FileName>SZ_STM32F103ZE_LIB.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SZ_STM32F103ZE_LIB.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

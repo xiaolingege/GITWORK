@@ -10,14 +10,7 @@ static  bool isCheckHead(const u8 * head);
 static float mag_center_calc(u32 magsenseBuffer);
 static float PIDCalc(float err);
 
-const struct _magSenseHeader
-{
-	u8 pos1;
-	u8 pos2;
-	u8 pos3;
-	u8 pos4;
-	u8 pos5;
-}magSenseHeader = MAG_SENSE_HEADER;
+const struct _magSenseHeader magSenseHeader = MAG_SENSE_HEADER;
 
 static float CarSpeedVx = 0;
 static float CarSpeedVw = 0;
@@ -94,11 +87,15 @@ void mag_to_speed(void)
 /*---------------------------------------------------------------------------------------------*/
 static float mag_center_calc(u32 magsenseBuffer)
 {
+	MAG_UNION rec_data;
 	float weight[16];
 	float magCenterForReturn = 0;
 	float signal[16];
 	u8 count = 0;
 	u8 i = 0;
+	rec_data.mag_arr[0] = magsenseBuffer;
+	rec_data.mag_arr[1] = magsenseBuffer >> 8;
+	rec_data.mag_arr[2] = magsenseBuffer >> 16;
 	signal[15] = 1 & magsenseBuffer;
 	for (i = 0; i < 16; i++)
 	{
