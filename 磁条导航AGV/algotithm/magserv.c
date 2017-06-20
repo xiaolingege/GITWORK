@@ -9,6 +9,8 @@ static float StationCalc(const u8 * MagSense);
 static  BOOL isCheckHead(const u8 * head);
 static float mag_center_calc(u32 magsenseBuffer);
 static float PIDCalc(float err);
+static float speed_vx_plan(float detax, BOOL station_flag, float cur_vx, BOOL block_flag);
+static float speed_vw_plan(float detax, float set_vx, int limit_switch);
 
 const struct _magSenseHeader magSenseHeader = MAG_SENSE_HEADER;
 CAR_MOVE_STATUS CarSpeed;
@@ -76,6 +78,13 @@ static  BOOL isCheckHead(const u8 * head)
 /*---------------------------------------------------------------------------------------------*/
 void mag_to_speed(void)
 {
+	float detax = 0;
+	//计算偏差值
+	//根据偏差值、站点信息、当前速度与障碍物信息计算vx
+	//根据偏差值、线速度值与限位开关信息得到模糊规则的KP、KI、KD并计算vw
+
+	CarSpeed.vx = speed_vx_plan(detax, 0, 0, 0);
+	CarSpeed.vw = speed_vw_plan(detax, 0, 0);
 	CarSpeed.vw = PIDCalc(StationCalc(MagRcvDate));
 	SendSpeedToCtrl(CarSpeed.vx, CarSpeed.vw);
 	if (CarSpeed.vx < 0.60f)
@@ -124,7 +133,21 @@ static float PIDCalc(float err)
 	return  control;
 }
 
+static float speed_vx_plan(float detax, BOOL station_flag, float cur_vx, BOOL block_flag)
+{
+	//根据偏差按照模糊规则查找合适的预期速度值
+	//和当前速度值进行比较
+	//站点信息判断是否更改预期数值
+	//障碍物信息判断是否更改预期数值
+	return 0;
+}
 
+static float speed_vw_plan(float detax, float set_vx, int limit_switch)
+{
+	//根据预期速度和偏差查询模糊规则
+	//根据限位开关信息判断是否更改旋转角速度
+	return 0;
+}
 
 
 
