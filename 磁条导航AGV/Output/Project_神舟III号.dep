@@ -32,7 +32,7 @@ I (.\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x593E95D4)
 I (SZ_STM32F103ZE_LIB.h)(0x593E95D4)
 I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x574E3E26)
 I (..\BSP\rs485communicate.h)(0x59475E14)
-F (.\main.c)(0x59477C04)(-c --cpu Cortex-M3 -g -O3 --apcs=interwork -I .\ -I .\..\Libraries\CMSIS\CM3\CoreSupport -I .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I .\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I .\..\Utilities\STM32_EVAL -I .\..\Utilities\STM32_EVAL\Common -I .\..\Utilities\STM32_EVAL\STM3210C_EVAL -I ..\BSP -I ..\algotithm -I ..\FreeRTOS\inc-ID:\Keil_v5\ARM\RV31\INC-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\Inc\ST\STM32F10x-D__UVISION_VERSION="521" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
+F (.\main.c)(0x59488541)(-c --cpu Cortex-M3 -g -O3 --apcs=interwork -I .\ -I .\..\Libraries\CMSIS\CM3\CoreSupport -I .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I .\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I .\..\Utilities\STM32_EVAL -I .\..\Utilities\STM32_EVAL\Common -I .\..\Utilities\STM32_EVAL\STM3210C_EVAL -I ..\BSP -I ..\algotithm -I ..\FreeRTOS\inc-ID:\Keil_v5\ARM\RV31\INC-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\Inc\ST\STM32F10x-D__UVISION_VERSION="521" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
 I (..\BSP\hardware.h)(0x594739D4)
 I (.\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x593E95D4)
 I (.\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x593E95D4)
@@ -492,7 +492,7 @@ I (.\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h)(0x593E95D4)
 I (.\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h)(0x593E95D4)
 I (.\..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_wwdg.h)(0x593E95D4)
 I (.\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x593E95D4)
-F (..\BSP\hardware.c)(0x5947883C)(-c --cpu Cortex-M3 -g -O3 --apcs=interwork -I .\ -I .\..\Libraries\CMSIS\CM3\CoreSupport -I .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I .\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I .\..\Utilities\STM32_EVAL -I .\..\Utilities\STM32_EVAL\Common -I .\..\Utilities\STM32_EVAL\STM3210C_EVAL -I ..\BSP -I ..\algotithm -I ..\FreeRTOS\inc-ID:\Keil_v5\ARM\RV31\INC-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\Inc\ST\STM32F10x-D__UVISION_VERSION="521" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o ..\output\hardware.o --omf_browse ..\output\hardware.crf --depend ..\output\hardware.d)
+F (..\BSP\hardware.c)(0x59487A87)(-c --cpu Cortex-M3 -g -O3 --apcs=interwork -I .\ -I .\..\Libraries\CMSIS\CM3\CoreSupport -I .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I .\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I .\..\Utilities\STM32_EVAL -I .\..\Utilities\STM32_EVAL\Common -I .\..\Utilities\STM32_EVAL\STM3210C_EVAL -I ..\BSP -I ..\algotithm -I ..\FreeRTOS\inc-ID:\Keil_v5\ARM\RV31\INC-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\Inc\ST\STM32F10x-D__UVISION_VERSION="521" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o ..\output\hardware.o --omf_browse ..\output\hardware.crf --depend ..\output\hardware.d)
 I (.\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x593E95D4)
 I (.\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x593E95D4)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574E3E26)
@@ -556,7 +556,7 @@ I (.\..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h)(0x593E95D4)
 I (..\BSP\rs485communicate.h)(0x59475E14)
 I (..\BSP\rs485config.h)(0x593E95D4)
 I (..\BSP\commtype.h)(0x5947893B)
-F (..\algotithm\magserv.c)(0x59476291)(-c --cpu Cortex-M3 -g -O3 --apcs=interwork -I .\ -I .\..\Libraries\CMSIS\CM3\CoreSupport -I .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I .\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I .\..\Utilities\STM32_EVAL -I .\..\Utilities\STM32_EVAL\Common -I .\..\Utilities\STM32_EVAL\STM3210C_EVAL -I ..\BSP -I ..\algotithm -I ..\FreeRTOS\inc-ID:\Keil_v5\ARM\RV31\INC-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\Inc\ST\STM32F10x-D__UVISION_VERSION="521" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o ..\output\magserv.o --omf_browse ..\output\magserv.crf --depend ..\output\magserv.d)
+F (..\algotithm\magserv.c)(0x594880F5)(-c --cpu Cortex-M3 -g -O3 --apcs=interwork -I .\ -I .\..\Libraries\CMSIS\CM3\CoreSupport -I .\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x -I .\..\Libraries\STM32F10x_StdPeriph_Driver\inc -I .\..\Utilities\STM32_EVAL -I .\..\Utilities\STM32_EVAL\Common -I .\..\Utilities\STM32_EVAL\STM3210C_EVAL -I ..\BSP -I ..\algotithm -I ..\FreeRTOS\inc-ID:\Keil_v5\ARM\RV31\INC-ID:\Keil_v5\ARM\CMSIS\Include-ID:\Keil_v5\ARM\Inc\ST\STM32F10x-D__UVISION_VERSION="521" -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o ..\output\magserv.o --omf_browse ..\output\magserv.crf --depend ..\output\magserv.d)
 I (..\algotithm\magserv.h)(0x59473A49)
 I (.\..\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h)(0x593E95D4)
 I (.\..\Libraries\CMSIS\CM3\CoreSupport\core_cm3.h)(0x593E95D4)
