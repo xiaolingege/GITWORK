@@ -1,6 +1,5 @@
 #include "stm32f10x.h"
 #include "hardware.h"
-//#include "SZ_STM32F103ZE_LIB.h"
 #include "rs485config.h"
 #include "commtype.h"
 static void COM_GPIO_init(GPIO_InitTypeDef *GPIO_InitStructure);
@@ -47,7 +46,6 @@ void hardware_init(void)
 	| RCC_APB1Periph_USART3, ENABLE);
 
 	COM_GPIO_init(&GPIO_InitStructure);
-
 	USART_Config(COM1, 115200);
 	USART_Config(COM2, 115200);
 	USART_Config(COM3, 115200);
@@ -56,13 +54,12 @@ void hardware_init(void)
 	//GPIO_SetBits(GPIOF, GPIO_Pin_11);   //设置485为输出状态，暂不改变其状态
 	change_rs485_mode(MSG_SEND);
 }
-
+/*----------------------------------------------------------------------------*/
 void change_rs485_mode(u8 msgdir)
 {
 	if (msgdir == MSG_SEND)
 	{
 		GPIO_SetBits(GPIOF, GPIO_Pin_11);   //设置485为输出状态，暂不改变其状态
-
 	}
 	else if (msgdir == MSG_GET)
 	{
@@ -78,6 +75,12 @@ void NVIC_configuration(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 	/* Enable the USART1 Interrupt */
 	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;			     	//设置串口中断
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;			     	//设置串口中断
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;			     	//设置串口中断
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
