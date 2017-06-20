@@ -55,8 +55,8 @@ void SendSpeedToCtrl(float vx, float w)
 	static u8 sendFlag = LEFTCTRL;
 	static s16 speedLeft = 0;
 	static s16 speedRight = 0;
-	speedLeft = -2.0f * 60.0f * (18.0f * vx - 2.97f * w) / 3.1415f / 0.12f;
-	speedRight = 2.0f * 60.0f * (18.0f * vx + 2.97f * w) / 3.1415f / 0.12f;
+	speedLeft = -2.0f * 60.0f * (18.0f * vx - 2.97f * w) / PI / 0.12f;
+	speedRight = 2.0f * 60.0f * (18.0f * vx + 2.97f * w) / PI/ 0.12f;
 
 	if (LEFTCTRL == sendFlag)
 	{

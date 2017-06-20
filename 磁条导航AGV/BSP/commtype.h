@@ -14,12 +14,17 @@
 #define COM2_OUT GPIO_Pin_2
 #define COM2_IN GPIO_Pin_3
 
+#define COM3_OUT GPIO_Pin_10
+#define COM3_IN GPIO_Pin_11
+
 #define COM1 USART1
 #define COM2 USART2
+#define COM3 USART3
 
 #define MAG_SENSE_HEADER {0x52, 0x4D, 0x67, 0x73, 0x77}
 #define MAG_RCV_SIZE  (15)
 
+#define PI 3.1415926f
 
 enum _BOOL//自定义BOOL类型
 {

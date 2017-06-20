@@ -25,6 +25,15 @@ static void COM_GPIO_init(GPIO_InitTypeDef *GPIO_InitStructure)
 	GPIO_InitStructure->GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_InitStructure->GPIO_Pin = COM2_IN;
 	GPIO_Init(GPIOA, GPIO_InitStructure);
+	
+	GPIO_InitStructure->GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStructure->GPIO_Pin = COM3_OUT;
+	GPIO_InitStructure->GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOB, GPIO_InitStructure);
+
+	GPIO_InitStructure->GPIO_Mode = GPIO_Mode_IN_FLOATING;
+	GPIO_InitStructure->GPIO_Pin = COM3_IN;
+	GPIO_Init(GPIOB, GPIO_InitStructure);
 }
 
 /*---------------------------------------------------------------------------------------------*/
@@ -32,13 +41,16 @@ void hardware_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	//初始化时钟
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOF | RCC_APB2Periph_GPIOA, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB1Periph_USART2, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOF \
+	| RCC_APB2Periph_GPIOA| RCC_APB2Periph_GPIOB, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB1Periph_USART2\
+	| RCC_APB1Periph_USART3, ENABLE);
 
 	COM_GPIO_init(&GPIO_InitStructure);
 
 	USART_Config(COM1, 115200);
 	USART_Config(COM2, 115200);
+	USART_Config(COM3, 115200);
 	//	uart_init(COM2, 115200);
 	AGV_control_com_config();
 	//GPIO_SetBits(GPIOF, GPIO_Pin_11);   //设置485为输出状态，暂不改变其状态
