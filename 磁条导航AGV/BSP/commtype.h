@@ -24,7 +24,7 @@
 #define MAG_SENSE_HEADER {0x52, 0x4D, 0x67, 0x73, 0x77}
 #define MAG_RCV_SIZE  (15)
 
-#define PI 3.1415926f
+#define PI (3.1415926f)
 
 enum _BOOL//自定义BOOL类型
 {

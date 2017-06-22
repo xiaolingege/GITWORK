@@ -2,6 +2,7 @@
 "..\output\stm32f10x_it.o"
 "..\output\main.o"
 "..\output\xprintf.o"
+"..\output\log.o"
 "..\output\stm32f10x_rcc.o"
 "..\output\stm32f10x_gpio.o"
 "..\output\misc.o"

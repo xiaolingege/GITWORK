@@ -1,7 +1,7 @@
-#include    "stm32f10x.h"
-#include    "rs485communicate.h"
-#include    "stm32f10x.h"
-#include    "rs485config.h"
+#include "stm32f10x.h"
+#include "rs485communicate.h"
+#include "stm32f10x.h"
+#include "rs485config.h"
 #include "commtype.h"
 
 const u8 auchCRCHi[] = {

@@ -2,13 +2,13 @@
 #include "stm32f10x.h"
 #include "rs485communicate.h"
 #include "commtype.h"
-
+#include "Log.h"
 #define MAGSERVPI   0.05f
 
-static float StationCalc(const u8 * MagSense);
-static  BOOL isCheckHead(const u8 * head);
+static float station_calc(const u8 * MagSense);
+static  BOOL is_check_head(const u8 * head);
 static float mag_center_calc(u32 magsenseBuffer);
-static float PIDCalc(float err);
+static float PID_calc(float err);
 static float speed_vx_plan(float detax, BOOL station_flag, float cur_vx, BOOL block_flag);
 static float speed_vw_plan(float detax, float set_vx, int limit_switch);
 
@@ -21,29 +21,29 @@ u8 MagRcvDate[MAG_RCV_SIZE] = { 0 };
 u8 MagRcvCount = 0;
 
 /*---------------------------------------------------------------------------------------------*/
-static float StationCalc(const u8 * MagSense)
+static float station_calc(const u8 * MagSense)
 {
-	static float StationForReturn = 0;
-	u32 magDate = 0;
+	static float scStationReturn = 0;
+	u32 scMagDate = 0;
 	if (MagRcvCount >= 10)
 	{
-		if (isCheckHead(MagSense))
+		if (is_check_head(MagSense))
 		{
-			magDate = (MagSense[5] << 16) | (MagSense[6] << 8) | (MagSense[7]);
+			scMagDate = (MagSense[5] << 16) | (MagSense[6] << 8) | (MagSense[7]);
 			MagRcvCount = 0;
-			if (0 != magDate)
+			if (0 != scMagDate)
 			{
-				StationForReturn = mag_center_calc(magDate);
+				scStationReturn = mag_center_calc(scMagDate);
 			}
 			else
 			{
 				CarSpeed.vx = 0;
-				StationForReturn = 0;
+				scStationReturn = 0;
 			}
 		}
 		MagRcvCount = 0;
 	}
-	return StationForReturn;
+	return scStationReturn;
 }
 
 /*---------------------------------------------------------------------------------------------*/
@@ -61,13 +61,13 @@ void USART1_IRQHandler(void)
 }
 
 /*---------------------------------------------------------------------------------------------*/
-static  BOOL isCheckHead(const u8 * head)
+static  BOOL is_check_head(const u8 * ichHead)
 {
-	u8 hedbuffer[5] = MAG_SENSE_HEADER;
+	u8 ichHeadBuffer[5] = MAG_SENSE_HEADER;
 	u8 i = 0;
 	for (i = 0; i < 5; i++)
 	{
-		if (head[i] != hedbuffer[i])
+		if (ichHead[i] != ichHeadBuffer[i])
 		{
 			return FALSE;
 		}
@@ -78,15 +78,19 @@ static  BOOL isCheckHead(const u8 * head)
 /*---------------------------------------------------------------------------------------------*/
 void mag_to_speed(void)
 {
-	float detax = 0;
+	float mtsDetax = 0;
+	mtsDetax = station_calc(MagRcvDate);
+
 	//计算偏差值
 	//根据偏差值、站点信息、当前速度与障碍物信息计算vx
 	//根据偏差值、线速度值与限位开关信息得到模糊规则的KP、KI、KD并计算vw
+	//发送速度到驱动器
 
-	CarSpeed.vx = speed_vx_plan(detax, 0, 0, 0);
-	CarSpeed.vw = speed_vw_plan(detax, 0, 0);
-	CarSpeed.vw = PIDCalc(StationCalc(MagRcvDate));
+	CarSpeed.vx = speed_vx_plan(mtsDetax, 0, 0, 0);
+	CarSpeed.vw = speed_vw_plan(mtsDetax, 0, 0);
+	CarSpeed.vw = PID_calc(mtsDetax);
 	SendSpeedToCtrl(CarSpeed.vx, CarSpeed.vw);
+	printf("%.4f\n", CarSpeed.vx);
 	if (CarSpeed.vx < 0.60f)
 	{
 		CarSpeed.vx += 0.01f;
@@ -96,41 +100,41 @@ void mag_to_speed(void)
 /*---------------------------------------------------------------------------------------------*/
 static float mag_center_calc(u32 magsenseBuffer)
 {
-	float weight[16];
-	float magCenterForReturn = 0;
-	float signal[16];
-	u8 count = 0;
-	u8 i = 0;
-	signal[15] = 1 & magsenseBuffer;
-	for (i = 0; i < 16; i++)
+	float mccWeight[16];
+	float mccMagCenter = 0;
+	float mccSignal[16];
+	u8 mccCount = 0;
+	u8 mccI = 0;
+	mccSignal[15] = 1 & magsenseBuffer;
+	for (mccI = 0; mccI < 16; mccI++)
 	{
-		weight[i] = (float)i - 7.5f;
+		mccWeight[mccI] = (float)mccI - 7.5f;
 	}
-	for (i = 8; i < 16; i++)
+	for (mccI = 8; mccI < 16; mccI++)
 	{
-		signal[i - 1] = 1 & (magsenseBuffer >> (i));
+		mccSignal[mccI - 1] = 1 & (magsenseBuffer >> (mccI));
 	}
-	for (i = 1; i < 8; i++)
+	for (mccI = 1; mccI < 8; mccI++)
 	{
-		signal[i - 1] = 1 & (magsenseBuffer >> (16 + i));
+		mccSignal[mccI - 1] = 1 & (magsenseBuffer >> (16 + mccI));
 	}
-	for (i = 0; i < 16; i++)
+	for (mccI = 0; mccI < 16; mccI++)
 	{
-		if (signal[i])
+		if (mccSignal[mccI])
 		{
-			count++;
+			mccCount++;
 		}
-		magCenterForReturn += (weight[i] * signal[i]);
+		mccMagCenter += (mccWeight[mccI] * mccSignal[mccI]);
 	}
-	return (magCenterForReturn / (float)count* 10.0f);
+	return (mccMagCenter / (float)mccCount* 10.0f);
 }
 
 /*---------------------------------------------------------------------------------------------*/
-static float PIDCalc(float err)
+static float PID_calc(float err)
 {
-	float control = 0;
-	control = MAGSERVPI * err;
-	return  control;
+	float PcControl = 0;
+	PcControl = MAGSERVPI * err;
+	return  PcControl;
 }
 
 static float speed_vx_plan(float detax, BOOL station_flag, float cur_vx, BOOL block_flag)
