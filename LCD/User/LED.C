@@ -34,20 +34,26 @@ void ledGPIOInit(void)
 编 写 人：
 注    意：
 ***********************************************************************/
-void ledBlink(void)
+void ledBlink(u8 led_flag)
 {
+	if(led_flag)
+	{
 	/*****熄灭四个led灯******/
 	_LED1_OFF;
 	_LED2_OFF;
 	_LED3_OFF;
 	_LED4_OFF;
-	ledDelay(LedBlinkTime);
+	}
+//	ledDelay(LedBlinkTime);
 	/*****点亮四个led灯******/
+	else
+	{
 	_LED1_ON;
 	_LED2_ON;
 	_LED3_ON;
 	_LED4_ON;
-	ledDelay(LedBlinkTime);
+	}
+//	ledDelay(LedBlinkTime);
 }
 /***********************************************************************
 函数名称：One_LED_ON(unsigned char led_num)

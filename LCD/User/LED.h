@@ -26,7 +26,7 @@
 
 void ledBlinkTimeSet(u32 val);
 void ledGPIOInit(void);
-void ledBlink(void);
+void ledBlink(u8 led_flag);
 void oneLedON(unsigned char led_num);
 static ledDelay(uint32_t nCount);
 
