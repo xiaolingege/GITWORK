@@ -7,22 +7,18 @@
 ***********************************************************************/
 #include "main.h"
 
-/***********************************************************************
-函数名称：LED_Configuration(void)
-功    能：完成LED的配置
-输入参数：
-输出参数：
-编写时间：2013.4.25
-编 写 人：
-注    意：
-***********************************************************************/
-void LED_Configuration(void)
-{
+static u32 LedBlinkTime = 0xffffff;
 
+void ledBlinkTimeSet(u32 val)
+{
+	LedBlinkTime = val;
+}
+
+void ledGPIOInit(void)
+{
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	/* Enable the GPIO_LED Clock */
 	RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOE, ENABLE); 						 
-	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
@@ -38,20 +34,20 @@ void LED_Configuration(void)
 编 写 人：
 注    意：
 ***********************************************************************/
-void LED_Blink(void)
+void ledBlink(void)
 {
 	/*****熄灭四个led灯******/
-	LED1_OFF;
-	LED2_OFF;
-	LED3_OFF;
-	LED4_OFF;
-	LED_Delay(0xffffff);
+	_LED1_OFF;
+	_LED2_OFF;
+	_LED3_OFF;
+	_LED4_OFF;
+	ledDelay(LedBlinkTime);
 	/*****点亮四个led灯******/
-	LED1_ON;
-	LED2_ON;
-	LED3_ON;
-	LED4_ON;
-	LED_Delay(0xffffff);
+	_LED1_ON;
+	_LED2_ON;
+	_LED3_ON;
+	_LED4_ON;
+	ledDelay(LedBlinkTime);
 }
 /***********************************************************************
 函数名称：One_LED_ON(unsigned char led_num)
@@ -62,33 +58,33 @@ void LED_Blink(void)
 编 写 人：
 注    意：
 ***********************************************************************/
-void One_LED_ON(unsigned char led_num)
+void oneLedON(unsigned char led_num)
 {	
 	/*****熄灭四个led灯******/
-	LED1_OFF;
-	LED2_OFF;
-	LED3_OFF;
-	LED4_OFF;
+	_LED1_OFF;
+	_LED2_OFF;
+	_LED3_OFF;
+	_LED4_OFF;
 	switch(led_num)
 	{
-		case 1:
+		case KEY1:
 		{
-			LED1_ON;
+			_LED1_ON;
 			break;
 		}
-		case 2:
+		case KEY2:
 		{
-			LED2_ON;
+			_LED2_ON;
 			break;		
 		}
-		case 3:
+		case KEY3:
 		{
-			LED3_ON;
+			_LED3_ON;
 			break;		
 		}
-		case 4:
+		case KEY4:
 		{
-			LED4_ON;
+			_LED4_ON;
 			break;		
 		}
 		default:
@@ -98,7 +94,7 @@ void One_LED_ON(unsigned char led_num)
 	}		
 }
 
-static LED_Delay(uint32_t nCount)
+static ledDelay(uint32_t nCount)
 { 
   while(nCount > 0)
   { 

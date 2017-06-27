@@ -7,26 +7,19 @@
 ***********************************************************************/
 #include "main.h"
 
-/***********************************************************************
-函数名称：Key_Configuration(void)
-功    能：完成key的配置
-输入参数：
-输出参数：
-编写时间：2013.4.25
-编 写 人：
-注    意：
-***********************************************************************/
-void Key_Configuration(void)
+#define _KEY_GET_DELAY 0x18l
+
+void keyGPIOInit(void)
 {
 
 	GPIO_InitTypeDef GPIO_InitStructure;
-	
-	RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOE, ENABLE);
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
 	/********************按键输入***************************/
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN; 
-	GPIO_Init(GPIOE, &GPIO_InitStructure);	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
 }
 
 /***********************************************************************
@@ -42,52 +35,56 @@ void Key_Configuration(void)
 		  key4 ：4,
 		  无键按下时返回 0
 ***********************************************************************/
-unsigned char Key_Value(void)
+unsigned char keyValueGet(void)
 {
-	if(KEY1)//KEY1按下
+	if (_KEY1)//KEY1按下
 	{
-		Key_Delay(0XFFFF);//延时消抖
-		if(KEY1)
+		keyDelay(_KEY_GET_DELAY);//延时消抖
+		if (_KEY1)
 		{
-			return KEY1_VALUE;
-		}	
+			ledBlinkTimeSet(0x1ffffff);
+			return _KEY1_VALUE;
+		}
 	}
 	else
-	if(KEY2)//KEY2按下
-	{
-		Key_Delay(0XFFFF);//延时消抖
-		if(KEY2)
+		if (_KEY2)//KEY2按下
 		{
-			return KEY2_VALUE;
-		}	
-	}
-	else
-	if(KEY3)//KEY3按下
-	{
-		Key_Delay(0XFFFF);//延时消抖
-		if(KEY3)
-		{
-			return KEY3_VALUE;
-		}	
-	}
-	else
-	if(KEY4)//KEY4按下
-	{
-		Key_Delay(0XFFFF);//延时消抖
-		if(KEY4)
-		{
-			return KEY4_VALUE;
-		}	
-	}
-	else	//无键按下
-	{	
-		return 0;
-	}
+			keyDelay(_KEY_GET_DELAY);//延时消抖
+			if (_KEY2)
+			{
+				ledBlinkTimeSet(0x2ffffff);
+
+				return _KEY2_VALUE;
+			}
+		}
+		else
+			if (_KEY3)//KEY3按下
+			{
+				keyDelay(_KEY_GET_DELAY);//延时消抖
+				if (_KEY3)
+				{
+					ledBlinkTimeSet(0x3ffffff);
+
+					return _KEY3_VALUE;
+				}
+			}
+			else
+				if (_KEY4)//KEY4按下
+				{
+					keyDelay(_KEY_GET_DELAY);//延时消抖
+					if (_KEY4)
+					{
+						ledBlinkTimeSet(0x4ffffff);
+
+						return _KEY4_VALUE;
+					}
+				}
+				else	//无键按下
+				{
+					return 0;
+				}
 	return 0;
 }
-
-
-
 
 /***********************************************************************
 函数名称：Key_Delay(uint32_t nCount)
@@ -98,11 +95,10 @@ unsigned char Key_Value(void)
 编 写 人：
 注    意：
 ***********************************************************************/
-static void Key_Delay(uint32_t nCount)
-{ 
-  while(nCount > 0)
-  { 
-  	  nCount --;   
-  }
-
+static void keyDelay(uint32_t nCount)
+{
+	while (nCount > 0)
+	{
+		nCount--;
+	}
 }
