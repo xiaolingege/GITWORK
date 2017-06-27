@@ -9,14 +9,14 @@
 #define _LED_ON 1
 #define _LED_OFF 0
 
-#define _LED_BLINK_TASK_PRIO 1
-#define _KEY_CHECK_TASK_PRIO 2
+#define _LED_BLINK_TASK_PRIO 30
+#define _LCD_SHOW_TASK_PRIO 2
 
 #define _LED_BLINK_TASK_STK 100
-#define _KEY_CHECK_TASK_STK 100
+#define _LCD_SHOW_TASK_STK 100
 
 void ledBlinkTask(void *pvParameters);
-void keyCheckTask(void *pvParameters);
+void lcdShowTask(void *pvParameters);
 
 TaskHandle_t LedBlinkTaskHandle;
 TaskHandle_t KeyCheckTaskHandle;
@@ -32,19 +32,13 @@ int main(void)
 							(void*)NULL,\
 							(UBaseType_t)_LED_BLINK_TASK_PRIO,
 							 &LedBlinkTaskHandle);
-	xTaskCreate((TaskFunction_t)keyCheckTask, \
+	xTaskCreate((TaskFunction_t)lcdShowTask, \
 						(const char*)"KeyCheckTask", \
-						(u16)_KEY_CHECK_TASK_STK,\
+						(u16)_LCD_SHOW_TASK_STK,\
 						(void*)NULL,\
-						(UBaseType_t)_KEY_CHECK_TASK_PRIO,
+						(UBaseType_t)_LCD_SHOW_TASK_PRIO,
 						 &KeyCheckTaskHandle);
 	vTaskStartScheduler();
-	while (1)
-	{
-		
-	//	keyValueGet();
-	//	One_LED_ON(Key_Value());
-	}
 }
 /*------Ó²¼þ³õÊ¼»¯--------*/
 static void hardWareInit(void)
@@ -52,7 +46,6 @@ static void hardWareInit(void)
 	ledGPIOInit();
 	keyGPIOInit();
 	lcdGPIOInit();
-
 }
 
 void ledBlinkTask(void *pvParameters)
@@ -60,23 +53,21 @@ void ledBlinkTask(void *pvParameters)
 	pvParameters = (void *)pvParameters;
 	while(1)
 	{
-		_RS_H;
-		_CS_H;
 		ledBlink(_LED_ON);
 		vTaskDelay(3000/_LED_BLINK_FRE);
-		_RS_L;
-		_CS_L;
 		ledBlink(_LED_OFF);
 		vTaskDelay(3000/_LED_BLINK_FRE);
 	}
 }
 
-void keyCheckTask(void *pvParameters)
+void lcdShowTask(void *pvParameters)
 {
+	lcdInit();
 	pvParameters = (void *)pvParameters;
 	while(1)
 	{
-		cmdSend(0xaa);
+		lcdShowString(0x80, "haha");
+		lcdShowNumber(0x90, 50.1);
 		keyValueGet();
 		vTaskDelay(100);
 	}

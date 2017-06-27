@@ -23,5 +23,9 @@
 void lcdGPIOInit(void);
 
 static void byteSend(u8 data);
-void cmdSend(u8 data);
+static void cmdSend(u8 data);
+static void dataSend(u8 data);
+void lcdShowNumber(u8 x_add, float number);
+void lcdShowString(u8 x_add, u8 *ptr);
+void lcdInit(void);
 #endif

@@ -4,7 +4,7 @@
 #include "task.h"
 #include "timers.h"
 #include "queue.h"
-
+#include <stdio.h>
 
 void lcdGPIOInit(void)
 {
@@ -36,9 +36,55 @@ static void byteSend(u8 data)
 		vTaskDelay(2);
 	}
 }
-void cmdSend(u8  data)
+static void cmdSend(u8  cmd)
 {
-	byteSend(99);
+	_RS_H;
+	byteSend(0XF8);
+	byteSend(cmd & 0xF0);
+	byteSend((cmd & 0x0F) << 4);
+	_RS_L;
+}
+static void dataSend(u8 data)
+{
+	_RS_H;
+	byteSend(0xFA);
+	byteSend(data & 0xF0);
+	byteSend((data & 0x0F) << 4);
+	_RS_L;
+}
+void lcdShowNumber(u8 x_add, float number)
+{
+	char arr[5] = {'\0'};
+	char *ptr = arr;
+//	number = number - number/100.0f;
+	sprintf(arr," %.1f", number);
+	cmdSend(x_add);
+	while (*ptr != '\0')
+	{
+		dataSend(*ptr);
+		++ptr;
+	}
+}
+
+void lcdShowString(u8 x_add, u8 *ptr)
+{
+	cmdSend(x_add);
+	while (*ptr != '\0')
+	{
+		dataSend(*ptr);
+		++ptr;
+	}
+}
+
+void lcdInit(void)
+{
+	_RS_L;
+	vTaskDelay(100);
+	cmdSend(0x30);
+	cmdSend(0x0C);
+	cmdSend(0x01);
+	cmdSend(0x02);
+	cmdSend(0x80);
 }
 
 
