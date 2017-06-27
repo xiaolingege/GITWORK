@@ -3,8 +3,9 @@
 #include "task.h"
 #include "timers.h"
 #include "queue.h"
+#include "LCD.h"
 
-#define _LED_BLINK_FRE 1
+#define _LED_BLINK_FRE 2
 #define _LED_ON 1
 #define _LED_OFF 0
 
@@ -17,10 +18,8 @@
 void ledBlinkTask(void *pvParameters);
 void keyCheckTask(void *pvParameters);
 
-
 TaskHandle_t LedBlinkTaskHandle;
 TaskHandle_t KeyCheckTaskHandle;
-
 
 static void hardWareInit(void);
 int main(void)
@@ -52,6 +51,7 @@ static void hardWareInit(void)
 {
 	ledGPIOInit();
 	keyGPIOInit();
+	lcdGPIOInit();
 
 }
 
@@ -60,10 +60,14 @@ void ledBlinkTask(void *pvParameters)
 	pvParameters = (void *)pvParameters;
 	while(1)
 	{
+		_RS_H;
+		_CS_H;
 		ledBlink(_LED_ON);
-		vTaskDelay(1000/_LED_BLINK_FRE);
+		vTaskDelay(3000/_LED_BLINK_FRE);
+		_RS_L;
+		_CS_L;
 		ledBlink(_LED_OFF);
-		vTaskDelay(1000/_LED_BLINK_FRE);
+		vTaskDelay(3000/_LED_BLINK_FRE);
 	}
 }
 
@@ -72,8 +76,9 @@ void keyCheckTask(void *pvParameters)
 	pvParameters = (void *)pvParameters;
 	while(1)
 	{
+		cmdSend(0xaa);
 		keyValueGet();
-		vTaskDelay(10);
+		vTaskDelay(100);
 	}
 }
 
