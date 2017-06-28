@@ -21,7 +21,7 @@ enum _KEY_VAL
 	KEY4 = 4
 };
 
-void keyGPIOInit(void);
+void keyGPIOConfig(void);
 unsigned char keyValueGet(void);
 static void keyDelay(uint32_t nCount);
 

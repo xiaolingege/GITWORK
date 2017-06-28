@@ -20,7 +20,7 @@
 #define _CS_H GPIO_SetBits(_CS_PIN);
 #define _CS_L GPIO_ResetBits(_CS_PIN);
 
-void lcdGPIOInit(void);
+void lcdGPIOConfig(void);
 
 static void byteSend(u8 data);
 static void cmdSend(u8 data);

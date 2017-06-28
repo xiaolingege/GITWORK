@@ -416,6 +416,16 @@
               <FileType>1</FileType>
               <FilePath>..\User\KEY.C</FilePath>
             </File>
+            <File>
+              <FileName>LCD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\LCD.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -922,6 +932,16 @@
               <FileName>KEY.C</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\KEY.C</FilePath>
+            </File>
+            <File>
+              <FileName>LCD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\LCD.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\usart.c</FilePath>
             </File>
           </Files>
         </Group>

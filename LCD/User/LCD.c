@@ -6,7 +6,7 @@
 #include "queue.h"
 #include <stdio.h>
 
-void lcdGPIOInit(void)
+void lcdGPIOConfig(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	/* Enable the GPIO_LED Clock */
@@ -30,10 +30,8 @@ static void byteSend(u8 data)
 		{
 			_SID_L;
 		}
-		vTaskDelay(2);
 		_SCK_L;
 		data = data << 1;
-		vTaskDelay(2);
 	}
 }
 static void cmdSend(u8  cmd)
@@ -56,7 +54,17 @@ void lcdShowNumber(u8 x_add, float number)
 {
 	char arr[5] = {'\0'};
 	char *ptr = arr;
-//	number = number - number/100.0f;
+	if(number < 0)
+	{
+		number = 0;
+	}
+	else
+	{
+		while(number > 100)
+		{
+			number -= 100;
+		}
+	}
 	sprintf(arr," %.1f", number);
 	cmdSend(x_add);
 	while (*ptr != '\0')

@@ -4,72 +4,80 @@
 #include "timers.h"
 #include "queue.h"
 #include "LCD.h"
-
-#define _LED_BLINK_FRE 2
-#define _LED_ON 1
-#define _LED_OFF 0
-
-#define _LED_BLINK_TASK_PRIO 30
-#define _LCD_SHOW_TASK_PRIO 2
-
-#define _LED_BLINK_TASK_STK 100
-#define _LCD_SHOW_TASK_STK 100
+#include "datatype.h"
+#include "usart.h"
+#include "dma.h"
 
 void ledBlinkTask(void *pvParameters);
 void lcdShowTask(void *pvParameters);
 
 TaskHandle_t LedBlinkTaskHandle;
-TaskHandle_t KeyCheckTaskHandle;
+TaskHandle_t LcdShowTaskHandle;
 
 static void hardWareInit(void);
 int main(void)
 {
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	hardWareInit();
 	xTaskCreate((TaskFunction_t)ledBlinkTask, \
-							(const char*)"LedBlinkTask", \
-							(u16)_LED_BLINK_TASK_STK,\
-							(void*)NULL,\
-							(UBaseType_t)_LED_BLINK_TASK_PRIO,
-							 &LedBlinkTaskHandle);
+		(const char*)"LedBlinkTask", \
+		(u16)_LED_BLINK_TASK_STK, \
+		(void*)NULL, \
+		(UBaseType_t)_LED_BLINK_TASK_PRIO,
+		&LedBlinkTaskHandle);
 	xTaskCreate((TaskFunction_t)lcdShowTask, \
-						(const char*)"KeyCheckTask", \
-						(u16)_LCD_SHOW_TASK_STK,\
-						(void*)NULL,\
-						(UBaseType_t)_LCD_SHOW_TASK_PRIO,
-						 &KeyCheckTaskHandle);
+		(const char*)"LcdShowTask", \
+		(u16)_LCD_SHOW_TASK_STK, \
+		(void*)NULL, \
+		(UBaseType_t)_LCD_SHOW_TASK_PRIO,
+		&LcdShowTaskHandle);
 	vTaskStartScheduler();
 }
 /*------硬件初始化--------*/
 static void hardWareInit(void)
 {
-	ledGPIOInit();
-	keyGPIOInit();
-	lcdGPIOInit();
+	NVIC_Configuration();
+	usartConfig(115200);
+	dmaConfig();
+	ledGPIOConfig();
+	keyGPIOConfig();
+	lcdGPIOConfig();
 }
 
 void ledBlinkTask(void *pvParameters)
 {
 	pvParameters = (void *)pvParameters;
-	while(1)
+	while (1)
 	{
 		ledBlink(_LED_ON);
-		vTaskDelay(3000/_LED_BLINK_FRE);
+		vTaskDelay(3000 / _LED_BLINK_FRE);
 		ledBlink(_LED_OFF);
-		vTaskDelay(3000/_LED_BLINK_FRE);
+		vTaskDelay(3000 / _LED_BLINK_FRE);
+	//	Rs232DmaSend(DebugSend, 5);
 	}
 }
 
 void lcdShowTask(void *pvParameters)
 {
-	lcdInit();
+	float i = 0.1;
+	u8 j = 0;
+	lcdInit();//初始化LCD
 	pvParameters = (void *)pvParameters;
-	while(1)
+	while (1)
 	{
-		lcdShowString(0x80, "haha");
-		lcdShowNumber(0x90, 50.1);
-		keyValueGet();
-		vTaskDelay(100);
+		lcdShowString(0x80, "哈工大机器人集团");
+		lcdShowString(0x90, "电量:");
+		lcdShowNumber(0x96, i);//12864中显示的数字位数有限
+		lcdShowString(0x9A, "%");
+		j = keyValueGet();
+		i += 0.1f*(float)j;
+		if (0 == j)
+		{
+			vTaskDelay(10);
+		}
+		else
+		{
+			vTaskDelay(500);
+		}
 	}
 }
 

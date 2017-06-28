@@ -25,7 +25,7 @@
 #define _LED4_OFF 		GPIO_SetBits(GPIOE , GPIO_Pin_11)
 
 void ledBlinkTimeSet(u32 val);
-void ledGPIOInit(void);
+void ledGPIOConfig(void);
 void ledBlink(u8 led_flag);
 void oneLedON(unsigned char led_num);
 static ledDelay(uint32_t nCount);

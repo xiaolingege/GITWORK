@@ -7,14 +7,7 @@
 ***********************************************************************/
 #include "main.h"
 
-static u32 LedBlinkTime = 0xffffff;
-
-void ledBlinkTimeSet(u32 val)
-{
-	LedBlinkTime = val;
-}
-
-void ledGPIOInit(void)
+void ledGPIOConfig(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	/* Enable the GPIO_LED Clock */
@@ -98,12 +91,4 @@ void oneLedON(unsigned char led_num)
 			break;	
 		}
 	}		
-}
-
-static ledDelay(uint32_t nCount)
-{ 
-  while(nCount > 0)
-  { 
-  	  nCount --;   
-  }
 }
