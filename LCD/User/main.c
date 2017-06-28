@@ -1,12 +1,17 @@
 #include "main.h"	
 #include "FreeRTOS.h"
 #include "task.h"
-#include "timers.h"
+#include "timer.h"
 #include "queue.h"
 #include "LCD.h"
 #include "datatype.h"
 #include "usart.h"
 #include "dma.h"
+#include "math.h"
+
+
+#define _PI (3.1415f)
+#define _STEP (0.031415f)
 
 void ledBlinkTask(void *pvParameters);
 void lcdShowTask(void *pvParameters);
@@ -41,18 +46,41 @@ static void hardWareInit(void)
 	ledGPIOConfig();
 	keyGPIOConfig();
 	lcdGPIOConfig();
+	pwmConfig();
 }
 
 void ledBlinkTask(void *pvParameters)
 {
+	float led1Value = 0;
+	u16 led1Set = 0;
+	u16 led2Set = 16800;
+	BOOL ledFlag = 0;
 	pvParameters = (void *)pvParameters;
+ 
 	while (1)
 	{
-		ledBlink(_LED_ON);
-		vTaskDelay(3000 / _LED_BLINK_FRE);
-		ledBlink(_LED_OFF);
-		vTaskDelay(3000 / _LED_BLINK_FRE);
-	//	Rs232DmaSend(DebugSend, 5);
+		TIM_SetCompare1(TIM1,16800 - led1Value );
+		TIM_SetCompare2(TIM1, led1Value);
+		
+		if(ledFlag == TRUE)
+		{
+			led1Set += 12;
+
+			if(led1Set == 16400)
+			{
+				ledFlag = FALSE;
+			}
+		}
+		else
+		{
+			led1Set -= 12;
+			if(led1Set == 00)
+			{
+				ledFlag = TRUE;
+			}
+		}
+		led1Value = 16800 * sinf((float)led1Set*3.14f/16800.0f);
+		vTaskDelay(1);
 	}
 }
 

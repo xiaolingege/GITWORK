@@ -12,7 +12,7 @@
 #include "LED.H"
 #include "KEY.h"
 
-#define _LED_BLINK_FRE 4
+#define _LED_BLINK_FRE 1
 #define _LED_ON 1
 #define _LED_OFF 0
 

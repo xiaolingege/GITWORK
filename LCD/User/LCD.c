@@ -9,7 +9,6 @@
 void lcdGPIOConfig(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
-	/* Enable the GPIO_LED Clock */
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6;
