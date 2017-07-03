@@ -9,7 +9,6 @@
 #include "dma.h"
 #include "math.h"
 
-
 #define _PI (3.1415f)
 #define _STEP (0.031415f)
 
@@ -33,7 +32,7 @@ int main(void)
 		(const char*)"LcdShowTask", \
 		(u16)_LCD_SHOW_TASK_STK, \
 		(void*)NULL, \
-		(UBaseType_t)_LCD_SHOW_TASK_PRIO,
+		(UBaseType_t)_LCD_SHOW_TASK_PRIO,\
 		&LcdShowTaskHandle);
 	vTaskStartScheduler();
 }
@@ -53,33 +52,29 @@ void ledBlinkTask(void *pvParameters)
 {
 	float led1Value = 0;
 	u16 led1Set = 0;
-	u16 led2Set = 16800;
-	BOOL ledFlag = 0;
+	BOOL ledFlag = FALSE;
 	pvParameters = (void *)pvParameters;
- 
 	while (1)
 	{
-		TIM_SetCompare1(TIM1,16800 - led1Value );
+		TIM_SetCompare1(TIM1,10000 - led1Value );
 		TIM_SetCompare2(TIM1, led1Value);
-		
 		if(ledFlag == TRUE)
 		{
-			led1Set += 12;
-
-			if(led1Set == 16400)
+			led1Set += 2;
+			if(led1Set == 10000)
 			{
 				ledFlag = FALSE;
 			}
 		}
 		else
 		{
-			led1Set -= 12;
-			if(led1Set == 00)
+			led1Set -= 2;
+			if(led1Set == 0)
 			{
 				ledFlag = TRUE;
 			}
 		}
-		led1Value = 16800 * sinf((float)led1Set*3.14f/16800.0f);
+		led1Value = 10000 * sinf((float)led1Set*3.14f/10000.0f);
 		vTaskDelay(1);
 	}
 }

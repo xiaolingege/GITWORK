@@ -9,7 +9,7 @@ void pwmConfig(void)
 	TIM_OCInitTypeDef TIM_OCInit;
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 	
-	arr = SystemCoreClock/10000;
+	arr = SystemCoreClock/16800 - 1;
 	ccr1 = arr;
 	ccr2 = arr;
 	Tim_Init.TIM_Period = arr;
