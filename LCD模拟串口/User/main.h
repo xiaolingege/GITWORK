@@ -11,7 +11,7 @@
 #include "stm32f4xx.h"
 #include "LED.H"
 #include "KEY.h"
-
+#include "datatype.h"
 #define _LED_BLINK_FRE 1
 #define _LED_ON 1
 #define _LED_OFF 0
@@ -21,6 +21,8 @@
 
 #define _LED_BLINK_TASK_STK 100
 #define _LCD_SHOW_TASK_STK 100
+
+static void calcDuty(BOOL *ledFlag, u16 *led1Set, float *led1Value);
 
 #endif
 

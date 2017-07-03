@@ -26,13 +26,13 @@ int main(void)
 		(const char*)"LedBlinkTask", \
 		(u16)_LED_BLINK_TASK_STK, \
 		(void*)NULL, \
-		(UBaseType_t)_LED_BLINK_TASK_PRIO,
+		(UBaseType_t)_LED_BLINK_TASK_PRIO,\
 		&LedBlinkTaskHandle);
 	xTaskCreate((TaskFunction_t)lcdShowTask, \
 		(const char*)"LcdShowTask", \
 		(u16)_LCD_SHOW_TASK_STK, \
 		(void*)NULL, \
-		(UBaseType_t)_LCD_SHOW_TASK_PRIO,\
+		(UBaseType_t)_LCD_SHOW_TASK_PRIO, \
 		&LcdShowTaskHandle);
 	vTaskStartScheduler();
 }
@@ -48,6 +48,7 @@ static void hardWareInit(void)
 	pwmConfig();
 }
 
+
 void ledBlinkTask(void *pvParameters)
 {
 	float led1Value = 0;
@@ -56,41 +57,33 @@ void ledBlinkTask(void *pvParameters)
 	pvParameters = (void *)pvParameters;
 	while (1)
 	{
-		TIM_SetCompare1(TIM1,10000 - led1Value );
+		TIM_SetCompare1(TIM1, 10000 - led1Value);
 		TIM_SetCompare2(TIM1, led1Value);
-		if(ledFlag == TRUE)
-		{
-			led1Set += 2;
-			if(led1Set == 10000)
-			{
-				ledFlag = FALSE;
-			}
-		}
-		else
-		{
-			led1Set -= 2;
-			if(led1Set == 0)
-			{
-				ledFlag = TRUE;
-			}
-		}
-		led1Value = 10000 * sinf((float)led1Set*3.14f/10000.0f);
+		calcDuty(&ledFlag, &led1Set, &led1Value);
+
 		vTaskDelay(1);
 	}
 }
 
 void lcdShowTask(void *pvParameters)
 {
-	float i = 0.1;
+	float i = 110.1333;
 	u8 j = 0;
 	lcdInit();//初始化LCD
+	lcdShowString(0x80, "哈工大机器人集团");
+	lcdShowString(0x91, "电量：");
+	lcdShowString(0x97, "%");
+	lcdShowString(0x89, "电压：");
+	lcdShowString(0x8F, "V");
+	lcdShowString(0x99, "电流：");
+	lcdShowString(0x9F, "A");
 	pvParameters = (void *)pvParameters;
 	while (1)
 	{
-		lcdShowString(0x80, "哈工大机器人集团");
-		lcdShowString(0x90, "电量:");
-		lcdShowNumber(0x96, i);//12864中显示的数字位数有限
-		lcdShowString(0x9A, "%");
+ 		lcdShowNumber(0x94, i);
+		lcdShowNumber(0x8C, i);
+		lcdShowNumber(0x9C, i);
+
 		j = keyValueGet();
 		i += 0.1f*(float)j;
 		if (0 == j)
@@ -99,8 +92,31 @@ void lcdShowTask(void *pvParameters)
 		}
 		else
 		{
-			vTaskDelay(500);
+			vTaskDelay(100);
 		}
 	}
 }
+
+static void calcDuty(BOOL *ledFlag, u16 *led1Set, float *led1Value)
+{
+	if (*ledFlag == TRUE)
+	{
+		*led1Set += 2;
+		if (*led1Set == 10000)
+		{
+			*ledFlag = FALSE;
+		}
+	}
+	else
+	{
+		*led1Set -= 2;
+		if (*led1Set == 0)
+		{
+			*ledFlag = TRUE;
+		}
+	}
+	*led1Value = 10000 * sinf((float)*led1Set*3.14f / 10000.0f);
+}
+
+
 

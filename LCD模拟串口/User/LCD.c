@@ -20,7 +20,7 @@ static void byteSend(u8 data)
 	u8 i = 0;
 	for (i = 0; i < 8; i++)
 	{
-		_SCK_H;
+// 		_SCK_H;
 		if (data & 0x80)
 		{
 			_SID_H;
@@ -29,25 +29,28 @@ static void byteSend(u8 data)
 		{
 			_SID_L;
 		}
+		_SCK_H;
+		vTaskDelay(1);
 		_SCK_L;
+		vTaskDelay(1);
 		data = data << 1;
 	}
 }
 static void cmdSend(u8  cmd)
 {
-	_RS_H;
+	_CS_H;
 	byteSend(0XF8);
 	byteSend(cmd & 0xF0);
 	byteSend((cmd & 0x0F) << 4);
-	_RS_L;
+	_CS_L;
 }
 static void dataSend(u8 data)
 {
-	_RS_H;
+	_CS_H;
 	byteSend(0xFA);
 	byteSend(data & 0xF0);
 	byteSend((data & 0x0F) << 4);
-	_RS_L;
+	_CS_L;
 }
 void lcdShowNumber(u8 x_add, float number)
 {
@@ -66,6 +69,10 @@ void lcdShowNumber(u8 x_add, float number)
 	}
 	sprintf(arr," %.1f", number);
 	cmdSend(x_add);
+	if(number < 10)
+	{
+		dataSend(' ');
+	}
 	while (*ptr != '\0')
 	{
 		dataSend(*ptr);
@@ -76,6 +83,7 @@ void lcdShowNumber(u8 x_add, float number)
 void lcdShowString(u8 x_add, u8 *ptr)
 {
 	cmdSend(x_add);
+	vTaskDelay(1);
 	while (*ptr != '\0')
 	{
 		dataSend(*ptr);
@@ -85,12 +93,11 @@ void lcdShowString(u8 x_add, u8 *ptr)
 
 void lcdInit(void)
 {
-	_RS_L;
-	vTaskDelay(100);
+	_CS_L;
 	cmdSend(0x30);
-	cmdSend(0x0C);
+		cmdSend(0x0c);
 	cmdSend(0x01);
-	cmdSend(0x02);
+		cmdSend(0x02);
 	cmdSend(0x80);
 }
 
